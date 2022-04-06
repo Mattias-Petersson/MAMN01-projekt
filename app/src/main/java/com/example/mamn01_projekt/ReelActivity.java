@@ -27,8 +27,6 @@ public class ReelActivity extends AppCompatActivity implements View.OnTouchListe
         reelImage = findViewById(R.id.imageReel);
         text = findViewById(R.id.textView);
         reelImage.setOnTouchListener(this);
-
-
     }
 
     @Override
@@ -49,9 +47,9 @@ public class ReelActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
     private double getAngle(double x, double y) {
-        double xc = reelImage.getWidth() / 2.0;
-        double yc = reelImage.getHeight() / 2.0;
-        return Math.toDegrees(Math.atan2(x - xc, yc - y));
+        double xCenter = reelImage.getWidth() / 2.0;
+        double yCenter = reelImage.getHeight() / 2.0;
+        return Math.toDegrees(Math.atan2(x - xCenter, yCenter - y));
     }
 
     private void animate(double fromDegrees, double toDegrees) {
