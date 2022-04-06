@@ -17,4 +17,7 @@ public class MenuActivity extends AppCompatActivity {
      public void startGame(View v) {
         startActivity(new Intent(this, GameActivity.class));
     }
+    public void startReel(View v) {
+        startActivity(new Intent(this, ReelActivity.class));
+    }
 }
