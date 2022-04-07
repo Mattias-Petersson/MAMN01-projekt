@@ -1,32 +1,58 @@
 package com.example.mamn01_projekt;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.os.Vibrator;
+import android.os.VibrationEffect;
 
-public class ReelActivity extends AppCompatActivity implements View.OnTouchListener {
+public class ReelActivity extends AppCompatActivity implements View.OnTouchListener, SensorEventListener{
 
     private ImageView reelImage;
-    private TextView text;
+    private TextView text,distanceText;
     private double currentAngle = 0;
     private int counter = 0;
     private boolean pointingUp = true;
     private boolean pointingDown = false;
+    private SensorManager SensorManage;
+    private Sensor mAccelerometer;
+    private float distance;
+    private double flightTime = 2;
+    private Vibrator v;
+
+    
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reel);
+        setContentView(R.layout.reel_instruction);
         reelImage = findViewById(R.id.imageReel);
         text = findViewById(R.id.textView);
-        reelImage.setOnTouchListener(this);
+        //reelImage.setOnTouchListener(this);
+        SensorManage = (SensorManager) getSystemService(SENSOR_SERVICE);
+        mAccelerometer = SensorManage.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        SensorManage.registerListener((SensorEventListener) this,mAccelerometer,SensorManager.SENSOR_DELAY_UI);
+        v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        distanceText= findViewById(R.id.distance);
     }
 
     @Override
@@ -44,6 +70,31 @@ public class ReelActivity extends AppCompatActivity implements View.OnTouchListe
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onSensorChanged(@NonNull SensorEvent event){
+        Sensor mySensor = event.sensor;
+        
+        if(mySensor.getType() == Sensor.TYPE_ACCELEROMETER){
+            
+            float  xAcc = Math.abs(event.values[0]);
+            if(xAcc>5){
+                distance= (float) (0.5*xAcc*flightTime*flightTime);
+                distanceText.setText("Distance: "+ Float.toString(distance));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    v.vibrate(VibrationEffect.createOneShot((long) flightTime, VibrationEffect.DEFAULT_AMPLITUDE));
+                }
+                setContentView(R.layout.activity_reel);
+                reelImage.setOnTouchListener(this);
+            }
+        }
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
     }
 
     private double getAngle(double x, double y) {
