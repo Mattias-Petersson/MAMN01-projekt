@@ -53,11 +53,11 @@ public class ReelActivity extends AppCompatActivity {
                 Sensor mySensor = event.sensor;
                 if(mySensor.getType() == Sensor.TYPE_ACCELEROMETER){
                     float  xAcc = Math.abs(event.values[0]);
-                    if(xAcc>4){
+                    if(xAcc>12){
                         distance= (float) (0.5*xAcc*flightTime*flightTime);
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            v.vibrate(VibrationEffect.createOneShot((long) flightTime, VibrationEffect.DEFAULT_AMPLITUDE));
+                            v.vibrate(VibrationEffect.createOneShot((long)flightTime*100, VibrationEffect.DEFAULT_AMPLITUDE));
                         }
                         SensorManage.unregisterListener(this);
                         switchLayout();
@@ -129,6 +129,9 @@ public class ReelActivity extends AppCompatActivity {
                         double startAngle = currentAngle;
                         currentAngle = getAngle(event.getX(), event.getY());
                         checkLaps(currentAngle);
+                        if(distance>=0){
+                            distance =  (float)(distance- ((currentAngle-startAngle+360)%360)*0.01); //radie 10cm
+                        }
                         animate(startAngle, currentAngle);
                         break;
                 }
