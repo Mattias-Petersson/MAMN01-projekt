@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Maxy/AndroidStudioProjects/MAMN01-projekt/app/src/main/res/layout/activity_catch.xml" value="0.33" />
+        <entry key="..\:/Users/Maxy/AndroidStudioProjects/MAMN01-projekt/app/src/main/res/layout/activity_game.xml" value="0.2" />
+        <entry key="..\:/Users/Maxy/AndroidStudioProjects/MAMN01-projekt/app/src/main/res/layout/activity_menu.xml" value="0.18" />
         <entry key="..\:/Users/Naft/Documents/GitHub/MAMN01-projekt/app/src/main/res/layout/activity_menu.xml" value="0.33" />
         <entry key="..\:/Users/Naft/Documents/GitHub/MAMN01-projekt/app/src/main/res/layout/activity_reel.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.271623229980469" />

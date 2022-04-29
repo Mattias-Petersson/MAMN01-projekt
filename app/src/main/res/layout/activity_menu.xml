@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".MenuActivity">
 
+
+    <Button
+        android:id="@+id/btnCatch"
+        android:layout_width="144dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="40dp"
+        android:onClick="startCatch"
+        android:text="Catch"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSettings" />
+
     <Button
         android:id="@+id/btnSettings"
         android:layout_width="144dp"

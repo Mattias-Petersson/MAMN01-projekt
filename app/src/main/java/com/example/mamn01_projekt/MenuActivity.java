@@ -20,4 +20,7 @@ public class MenuActivity extends AppCompatActivity {
     public void startReel(View v) {
         startActivity(new Intent(this, ReelActivity.class));
     }
+    public void startCatch(View v) {
+        startActivity(new Intent(this, CatchActivity.class));
+    }
 }
