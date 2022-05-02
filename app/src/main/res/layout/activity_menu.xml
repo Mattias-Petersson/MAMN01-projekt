@@ -5,28 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MenuActivity">
-
+    <include
+        android:id="@+id/include"
+        layout="@layout/maingame" />
 
     <Button
         android:id="@+id/btnCatch"
         android:layout_width="144dp"
         android:layout_height="48dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="56dp"
         android:onClick="startCatch"
         android:text="Catch"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSettings" />
-
-    <Button
-        android:id="@+id/btnSettings"
-        android:layout_width="144dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="40dp"
-        android:text="Settings"
+        android:backgroundTint="#128817"
         android:textAllCaps="false"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +28,8 @@
         android:id="@+id/btnSpole"
         android:layout_width="144dp"
         android:layout_height="48dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="56dp"
+        android:backgroundTint="#128817"
         android:onClick="startReel"
         android:text="Reel"
         android:textAllCaps="false"
@@ -52,7 +43,8 @@
         android:id="@+id/btnPlay"
         android:layout_width="144dp"
         android:layout_height="48dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="240dp"
+        android:backgroundTint="#128817"
         android:onClick="startGame"
         android:text="Play"
         android:textAllCaps="false"
@@ -60,19 +52,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textWelcome" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textWelcome"
-        android:layout_width="155dp"
-        android:layout_height="45dp"
-        android:fontFamily="sans-serif"
-        android:text="Welcome!"
-        android:textSize="32sp"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="550dp"
+        android:layout_height="847dp"
+        android:background="#CD040404"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.043" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
