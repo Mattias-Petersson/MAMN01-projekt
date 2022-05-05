@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.Vibrator;
 import android.os.VibrationEffect;
+import java.util.*;
 
 public class ReelActivity extends AppCompatActivity {
 
@@ -37,6 +38,10 @@ public class ReelActivity extends AppCompatActivity {
     private float distance;
     private double flightTime = 2;
     private Vibrator v;
+    private String[] direction = {null, null};
+    private String state;
+    //private List<Float> xList = new LinkedList<>(); //stack to save the state at X-axle
+
 
     
 
@@ -47,19 +52,41 @@ public class ReelActivity extends AppCompatActivity {
         setContentView(R.layout.reel_instruction);
         SensorManage = (SensorManager) getSystemService(SENSOR_SERVICE);
         mAccelerometer = SensorManage.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        
         SensorManage.registerListener(new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
                 Sensor mySensor = event.sensor;
                 if(mySensor.getType() == Sensor.TYPE_ACCELEROMETER){
-                    float  xAcc = Math.abs(event.values[0]);
-                    if(xAcc>12){
-                        distance= (float) (0.5*xAcc*flightTime*flightTime);
+                    float xValue = event.values[0];
+                    float yValue = event.values[1];
+                    float zValue = event.values[2];
+                    float xAcc = Math.abs(event.values[0]);
+                 
+                    if(xValue < -0.5) {
+                        direction[0] = "Right";
+                        
+                    } else if (xValue > 0.5) {
+                        direction[0] = "Left";
+                        
+                    } else {
+                        direction[0] = null;
+                        
+                    }
+                    // Gives direction depending on y-axis value
+                    if(yValue < -0.5) {
+                        direction[1] = "Down";
+                    } else if (yValue > 0.5) {
+                        direction[1] = "Up";
+                    } else {
+                        direction[1] = null;
 
+                    }
+                    if(checkStateChange(direction[0])  && xAcc >10){
+                        distance= (float) (0.5*xAcc*flightTime*flightTime);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                             v.vibrate(VibrationEffect.createOneShot((long)flightTime*100, VibrationEffect.DEFAULT_AMPLITUDE));
                         }
-                        SensorManage.unregisterListener(this);
                         switchLayout();
                     }
                 }
@@ -76,7 +103,13 @@ public class ReelActivity extends AppCompatActivity {
 
 
 
-
+    private boolean checkStateChange(String direction){
+        if(state !=direction){
+            state =direction;
+            return true;
+        }
+        return false;
+    }
     private double getAngle(double x, double y) {
         double xCenter = reelImage.getWidth() / 2.0;
         double yCenter = reelImage.getHeight() / 2.0;
@@ -118,7 +151,10 @@ public class ReelActivity extends AppCompatActivity {
         reelImage.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                distanceText.setText("Distance: "+ Float.toString(distance));
+                if(distance<=0){ 
+                    distanceText.setText("Distance: 0");
+                }
+                
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         reelImage.clearAnimation();
@@ -129,8 +165,9 @@ public class ReelActivity extends AppCompatActivity {
                         double startAngle = currentAngle;
                         currentAngle = getAngle(event.getX(), event.getY());
                         checkLaps(currentAngle);
-                        if(distance>=0){
-                            distance =  (float)(distance- ((currentAngle-startAngle+360)%360)*0.01); //radie 10cm
+                        distance =  (float)(distance- ((currentAngle-startAngle+360)%360)*0.01); //radie 10cm
+                        if(distance>0){
+                            distanceText.setText("Distance: "+ Float.toString(distance));
                         }
                         animate(startAngle, currentAngle);
                         break;
