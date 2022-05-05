@@ -35,7 +35,7 @@ public class ReelActivity extends AppCompatActivity {
     private boolean pointingDown = false;
     private SensorManager SensorManage;
     private Sensor mAccelerometer;
-    private float distance;
+    private double distance;
     private double flightTime = 2;
     private Vibrator v;
     private String[] direction = {null, null};
@@ -111,6 +111,7 @@ public class ReelActivity extends AppCompatActivity {
         return false;
     }
     private double getAngle(double x, double y) {
+
         double xCenter = reelImage.getWidth() / 2.0;
         double yCenter = reelImage.getHeight() / 2.0;
         return Math.toDegrees(Math.atan2(x - xCenter, yCenter - y));
@@ -128,7 +129,7 @@ public class ReelActivity extends AppCompatActivity {
 
     //TODO ska man kunna snurra åt båda hållen eller är ett bakåt och ett framåt? Just nu kan man snurra åt båda
     private void checkLaps(double angle) {
-        angle = (angle + 360) % 360; // Gets the angle in 0..360 instead of -180..180.
+        angle = (angle + 360) % 360; // Gets the angle in 0..359 instead of -180..180.
         if (angle < 30 || angle > 330)
             pointingUp = true;
         // Reset the pointingUp so that users have to go down then up and not only register halves.
@@ -153,21 +154,24 @@ public class ReelActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 if(distance<=0){ 
                     distanceText.setText("Distance: 0");
+                    distance =0;
                 }
                 
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         reelImage.clearAnimation();
                         currentAngle = getAngle(event.getX(), event.getY());
+                        currentAngle = (currentAngle + 360) % 360;
 
                         break;
                     case MotionEvent.ACTION_MOVE:
                         double startAngle = currentAngle;
-                        currentAngle = getAngle(event.getX(), event.getY());
                         checkLaps(currentAngle);
-                        distance =  (float)(distance- ((currentAngle-startAngle+360)%360)*0.01); //radie 10cm
+                        currentAngle = getAngle(event.getX(), event.getY());
+                        currentAngle = (currentAngle + 360) % 360;
+                        distance =  distance- ((currentAngle-startAngle)*0.01);
                         if(distance>0){
-                            distanceText.setText("Distance: "+ Float.toString(distance));
+                            distanceText.setText("Distance: "+ Double.toString(distance)+"; angle: " + Double.toString(currentAngle-startAngle));
                         }
                         animate(startAngle, currentAngle);
                         break;
