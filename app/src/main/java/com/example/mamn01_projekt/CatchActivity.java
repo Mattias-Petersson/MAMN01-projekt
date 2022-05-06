@@ -3,6 +3,7 @@ package com.example.mamn01_projekt;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.view.View;
 
 import java.util.Random;
 
@@ -35,6 +37,8 @@ public class CatchActivity extends AppCompatActivity {
     int passedFalse = 0;
     private SensorManager sensorManager;
     private Sensor sensorAccelerometer;
+    private Sensor sensorGravity;
+    float[] grav = new float[3];
 
 
     @Override
@@ -46,17 +50,32 @@ public class CatchActivity extends AppCompatActivity {
         this.state = State.ENDED;
         mHandler = new Handler();
         sensorAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        sensorGravity = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
+
+        SensorEventListener sensorEventListenerGravity = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                grav = event.values;
+            }
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+            }
+        };
 
         SensorEventListener sensorEventListenerAccelerometer = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
+                double acc = calculateAcc(event.values, grav);
                 if (state == State.FALSE) {
-                    if(System.currentTimeMillis() > falseFinish){
+                    if(acc > 5) {
+                        state = state.ENDED;
+                    }
+                    else if(System.currentTimeMillis() > falseFinish){
                         state = State.WAIT;
                         passedFalse += 1;
                         timeWaiting = System.currentTimeMillis();
                     }
-                    if (System.currentTimeMillis() - timeSinceVibration > 100) {
+                    else if (System.currentTimeMillis() - timeSinceVibration > 100) {
                         vibrator.vibrate(vibrationEffect1);
                         timeSinceVibration = System.currentTimeMillis();
                     }
@@ -77,7 +96,10 @@ public class CatchActivity extends AppCompatActivity {
 
                 }
                 else if (state == State.REAL) {
-                    if(System.currentTimeMillis() > realFinish){
+                    if(acc > 5) {
+                        startReel();
+                    }
+                    else if(System.currentTimeMillis() > realFinish){
                         state = State.ENDED;
                     }
                     if (System.currentTimeMillis() - timeSinceVibration > 100) {
@@ -93,6 +115,7 @@ public class CatchActivity extends AppCompatActivity {
 
         };
         sensorManager.registerListener(sensorEventListenerAccelerometer, sensorAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(sensorEventListenerGravity, sensorGravity, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     public void startGame(android.view.View view) {
@@ -101,5 +124,13 @@ public class CatchActivity extends AppCompatActivity {
         timeSinceVibration = System.currentTimeMillis();
         vibrator.vibrate(vibrationEffect1);
         timeWaiting = System.currentTimeMillis();
+    }
+    private double calculateAcc(float[] acc, float[] grav) {
+        return Math.sqrt(Math.pow((double) acc[0] - grav[0], 2) + Math.pow((double) acc[1] - grav[1], 2) + Math.pow((double) acc[2] - grav[2], 2));
+        //return Math.sqrt(Math.pow((double) acc[0], 2) + Math.pow((double) acc[1], 2) + Math.pow((double) acc[2], 2));
+        //return (double) acc[0] - grav[0] + acc[1] - grav[1] + acc[2] - grav[2];
+    }
+    public void startReel() {
+        startActivity(new Intent(this, ReelActivity.class));
     }
 }
