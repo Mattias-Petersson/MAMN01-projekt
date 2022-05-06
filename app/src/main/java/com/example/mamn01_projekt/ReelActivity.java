@@ -154,24 +154,30 @@ public class ReelActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 if(distance<=0){ 
                     distanceText.setText("Distance: 0");
-                    distance =0;
+
                 }
                 
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         reelImage.clearAnimation();
                         currentAngle = getAngle(event.getX(), event.getY());
-                        currentAngle = (currentAngle + 360) % 360;
+
 
                         break;
                     case MotionEvent.ACTION_MOVE:
                         double startAngle = currentAngle;
                         checkLaps(currentAngle);
                         currentAngle = getAngle(event.getX(), event.getY());
-                        currentAngle = (currentAngle + 360) % 360;
-                        distance =  distance- ((currentAngle-startAngle)*0.01);
+                        if(currentAngle-startAngle<-180){
+                            distance = distance- ((360+(currentAngle-startAngle))*0.01);
+                        }else if(currentAngle-startAngle>180){
+                            distance =  distance+ ((360-(currentAngle-startAngle))*0.01);
+                        }else{
+                            distance =  distance- ((currentAngle-startAngle)*0.01);
+                        }
+
                         if(distance>0){
-                            distanceText.setText("Distance: "+ Double.toString(distance)+"; angle: " + Double.toString(currentAngle-startAngle));
+                            distanceText.setText("Distance: "+ Double.toString(distance));
                         }
                         animate(startAngle, currentAngle);
                         break;
