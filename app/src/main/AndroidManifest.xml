@@ -3,6 +3,7 @@
     package="com.example.mamn01_projekt">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,6 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MAMN01Projekt">
+        <activity
+            android:name=".CaughtActivity"
+            android:exported="false" />
         <activity
             android:name=".CatchActivity"
             android:exported="false" />
