@@ -1,6 +1,5 @@
 package com.example.mamn01_projekt;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -8,7 +7,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.VibrationEffect;
@@ -16,7 +14,6 @@ import android.os.Vibrator;
 
 import java.util.Random;
 
-@RequiresApi(api = Build.VERSION_CODES.O)
 public class CatchActivity extends AppCompatActivity {
 
     enum State {
@@ -29,7 +26,6 @@ public class CatchActivity extends AppCompatActivity {
     private State state;
     Vibrator vibrator;
     VibrationEffect vibrationEffect1;
-    Random r = new Random();
     Handler mHandler;
     long timeWaiting = 0;
     long timeSinceVibration = 0;
@@ -99,7 +95,6 @@ public class CatchActivity extends AppCompatActivity {
         sensorManager.registerListener(sensorEventListenerAccelerometer, sensorAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void startGame(android.view.View view) {
         this.state = State.WAIT;
         vibrationEffect1 = VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE);
@@ -107,24 +102,4 @@ public class CatchActivity extends AppCompatActivity {
         vibrator.vibrate(vibrationEffect1);
         timeWaiting = System.currentTimeMillis();
     }
-
-    /*
-    idleGame should vibrate every second (can be changed) +/- some delay with one fake-bite
-    and one real-bite.
-     */
-    private void idleGame() {
-
-        //vibrator.vibrate(vibrationEffect1);
-        //long delayInMs = r.nextInt(200) -100;
-        //mHandler.postDelayed(UpdateRunnable, 1000 + delayInMs);
-    }
-
-
-    Runnable UpdateRunnable = new Runnable() {
-        @Override
-        public void run() {
-            idleGame();
-        }
-    };
-
 }
