@@ -5,6 +5,7 @@ import java.util.Random;
 public abstract class Fish {
     protected int id;
     protected String name;
+    protected int primaryColor;
     protected double length;
     protected double weight;
     private final double decimalPlaces = 100d;

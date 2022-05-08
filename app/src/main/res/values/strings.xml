@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">MAMN01-Projekt</string>
+
+
+
+    <!-- For the popup:-->
+    <string name="congrats">Congratulations, you caught a: </string>
+    <string name="defaultFish">Default fish</string>
+    <string name="defaultStats">Default attributes</string>
+    <string name="playAgain">Play again?</string>
+    <string name="fishDesc">An image of the fish that the user caught.</string>
 </resources>

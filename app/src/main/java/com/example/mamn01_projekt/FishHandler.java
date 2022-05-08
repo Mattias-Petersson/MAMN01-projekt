@@ -18,6 +18,7 @@ public class FishHandler {
     private void addFish() {
         typesOfFish.add(new BlueFish());
         typesOfFish.add(new RedFish());
+        typesOfFish.add(new YellowFish());
     }
     public Fish returnCatch() {
         return returnCatchHelper(r.nextInt(typesOfFish.size()));

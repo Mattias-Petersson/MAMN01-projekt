@@ -3,6 +3,7 @@ package com.example.mamn01_projekt;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -28,25 +29,27 @@ public class CaughtActivity extends AppCompatActivity {
         View popup = inflater.inflate(R.layout.popup_catch, null);
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        // Set focusable to true when testing, false when the application is done. The user should
+        // Only be able to proceed by clicking buttons, false does that.
         final PopupWindow popupWindow = new PopupWindow(popup, width, height, true);
         getFields(popup);
-        printFish(view);
+        printFish();
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-        popup.setOnTouchListener( (v, e) -> { // View v and Event e respectively.
-            popupWindow.dismiss();
-            return true;
-        });
     }
     private void getFields(View popup) {
-        fishName = (TextView) popup.findViewById(R.id.textCaughtFishName);
-        fishStats = (TextView) popup.findViewById(R.id.textCaughtFishAttributes);
-        fishImage = (ImageView) popup.findViewById(R.id.imageFish);
+        fishName =  popup.findViewById(R.id.textCaughtFishName);
+        fishStats = popup.findViewById(R.id.textCaughtFishAttributes);
+        fishImage = popup.findViewById(R.id.imageFish);
     }
-    public void printFish(View v) {
+    private void printFish() {
         Fish f = new FishHandler().returnCatch();
         fishName.setText(f.name);
+        fishName.setTextColor(f.primaryColor);
         fishStats.setText("Weight: " + f.weight + " kg" + "\n" + "Length: " + f.length + " cm");
         fishImage.setImageResource(f.getImageSource());
 
+    }
+    public void startGame(View v) {
+        startActivity(new Intent(this, GameActivity.class));
     }
 }
