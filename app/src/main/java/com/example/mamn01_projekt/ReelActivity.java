@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -36,14 +37,19 @@ public class ReelActivity extends AppCompatActivity {
     private SensorManager SensorManage;
     private Sensor mAccelerometer;
     private double distance;
-    private double flightTime = 2;
+    private double flightTime =3;
     private Vibrator v;
     private String[] direction = {null, null};
     private String state;
+    private AnimationDrawable tutorialAnimation;
     //private List<Float> xList = new LinkedList<>(); //stack to save the state at X-axle
 
 
-    
+    @Override
+    protected void onStart() {
+        super.onStart();
+        tutorialAnimation.start();
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -52,8 +58,15 @@ public class ReelActivity extends AppCompatActivity {
         setContentView(R.layout.reel_instruction);
         SensorManage = (SensorManager) getSystemService(SENSOR_SERVICE);
         mAccelerometer = SensorManage.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        TextView instruction =findViewById(R.id.textView);
+
+        instruction.setBackgroundResource(R.drawable.kast);
+        tutorialAnimation = (AnimationDrawable) instruction.getBackground();
+
         
         SensorManage.registerListener(new SensorEventListener() {
+            @SuppressLint("MissingPermission")
             @Override
             public void onSensorChanged(SensorEvent event) {
                 Sensor mySensor = event.sensor;
@@ -80,11 +93,12 @@ public class ReelActivity extends AppCompatActivity {
                         direction[1] = "Up";
                     } else {
                         direction[1] = null;
-
                     }
                     if(checkStateChange(direction[0])  && xAcc >10){
+
                         distance= (float) (0.5*xAcc*flightTime*flightTime);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            //Reel sound
                             v.vibrate(VibrationEffect.createOneShot((long)flightTime*100, VibrationEffect.DEFAULT_AMPLITUDE));
                         }
                         switchLayout();

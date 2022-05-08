@@ -1,13 +1,16 @@
 package com.example.mamn01_projekt;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.VibrationEffect;
@@ -63,6 +66,8 @@ public class CatchActivity extends AppCompatActivity {
         };
 
         SensorEventListener sensorEventListenerAccelerometer = new SensorEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @SuppressLint("NewApi")
             @Override
             public void onSensorChanged(SensorEvent event) {
                 double acc = calculateAcc(event.values, grav);
@@ -118,6 +123,7 @@ public class CatchActivity extends AppCompatActivity {
         sensorManager.registerListener(sensorEventListenerGravity, sensorGravity, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void startGame(android.view.View view) {
         this.state = State.WAIT;
         vibrationEffect1 = VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE);
