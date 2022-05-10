@@ -96,7 +96,7 @@ public class ThrowActivity extends AppCompatActivity {
     }
 
     private boolean checkStateChange(String direction){
-        if(!state.equals(direction)){
+        if(state != direction){
             state =direction;
             return true;
         }
