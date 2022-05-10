@@ -26,9 +26,6 @@ public class MenuActivity extends AppCompatActivity {
     public void startCatch(View v) {
         startActivity(new Intent(this, CatchActivity.class));
     }
-    public void startCaught(View v) {
-        startActivity(new Intent(this, Caught.class));
-    }
     public void startThrow(View v) {
         startActivity(new Intent(this, ThrowActivity.class));
     }

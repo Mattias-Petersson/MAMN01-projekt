@@ -34,7 +34,7 @@ public class Caught {
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
         // Set focusable to true when testing, false when the application is done. The user should
         // Only be able to proceed by clicking buttons, false does that.
-        final PopupWindow popupWindow = new PopupWindow(popup, width, height, true);
+        final PopupWindow popupWindow = new PopupWindow(popup, width, height, false);
         getFields(popup);
         printFish();
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
@@ -53,6 +53,6 @@ public class Caught {
         fishName.setTextColor(f.primaryColor);
         fishStats.setText("Weight: " + f.weight + " kg" + "\n" + "Length: " + f.length + " cm");
         fishImage.setImageResource(f.getImageSource());
-        playAgain.setOnClickListener((v) -> context.startActivity(new Intent(context, GameActivity.class)));
+        playAgain.setOnClickListener(v -> context.startActivity(new Intent(context, GameActivity.class)));
     }
 }
