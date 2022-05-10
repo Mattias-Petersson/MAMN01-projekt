@@ -65,7 +65,6 @@ public class ThrowActivity extends AppCompatActivity {
 
                     } else {
                         direction[0] = null;
-
                     }
                     // Gives direction depending on y-axis value
                     if(yValue < -0.5) {
