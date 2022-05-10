@@ -22,7 +22,7 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(new Intent(this, GameActivity.class));
     }
     public void startReel(View v) {
-        startActivity(new Intent(this, ReelActivity.class));
+        startActivity(new Intent(this, ThrowActivity.class));
     }
     public void startCatch(View v) {
         startActivity(new Intent(this, CatchActivity.class));
