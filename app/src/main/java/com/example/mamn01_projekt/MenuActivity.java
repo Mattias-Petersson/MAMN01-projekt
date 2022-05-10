@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,16 +18,19 @@ public class MenuActivity extends AppCompatActivity {
     }
 
      public void startGame(View v) {
-        startActivity(new Intent(this, GameActivity.class));
+        this.startActivity(new Intent(this, GameActivity.class));
     }
     public void startReel(View v) {
-        startActivity(new Intent(this, ThrowActivity.class));
+        startActivity(new Intent(this, ReelActivity.class));
     }
     public void startCatch(View v) {
         startActivity(new Intent(this, CatchActivity.class));
     }
     public void startCaught(View v) {
-        startActivity(new Intent(this, CaughtActivity.class));
+        startActivity(new Intent(this, Caught.class));
+    }
+    public void startThrow(View v) {
+        startActivity(new Intent(this, ThrowActivity.class));
     }
     @Override
     public void onBackPressed() {

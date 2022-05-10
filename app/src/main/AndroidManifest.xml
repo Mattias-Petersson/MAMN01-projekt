@@ -25,9 +25,6 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CaughtActivity"
-            android:exported="false" />
-        <activity
             android:name=".MenuActivity"
             android:exported="true"
             android:noHistory="true"

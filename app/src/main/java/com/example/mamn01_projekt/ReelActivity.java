@@ -21,7 +21,7 @@ public class ReelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reel);
-        distance = getIntent().getDoubleExtra("distance", 0);
+        distance = getIntent().getDoubleExtra("distance", 42.0);
         reelImage = findViewById(R.id.imageReel);
         distanceText = findViewById(R.id.distance);
         initializeScreen();
@@ -54,14 +54,14 @@ public class ReelActivity extends AppCompatActivity {
         reelImage.setOnTouchListener((v, e) -> {
             if (distance <= 0) {
                 distanceText.setText("Distance: 0 m");
+                reelImage.setEnabled(false);
+                new Caught(this).catchFishPopup(v);
             }
 
             switch (e.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     reelImage.clearAnimation();
                     currentAngle = getAngle(e.getX(), e.getY());
-
-
                     break;
                 case MotionEvent.ACTION_MOVE:
                     double startAngle = currentAngle;

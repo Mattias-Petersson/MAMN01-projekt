@@ -68,7 +68,6 @@
         android:layout_marginTop="40dp"
         android:layout_marginBottom="10dp"
         android:backgroundTint="#128817"
-        android:onClick="startGame"
         android:text="@string/playAgain"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"

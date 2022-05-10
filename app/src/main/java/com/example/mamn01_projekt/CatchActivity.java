@@ -16,6 +16,7 @@ import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -102,6 +103,7 @@ public class CatchActivity extends AppCompatActivity {
                 }
                 else if (state == State.REAL) {
                     if(acc > 5) {
+                        System.out.println("Hallå");
                         startReel();
                     }
                     else if(System.currentTimeMillis() > realFinish){

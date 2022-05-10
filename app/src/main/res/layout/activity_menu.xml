@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MenuActivity">
+
     <include
         android:id="@+id/include"
-        layout="@layout/maingame" />
+        layout="@layout/maingame"/>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageShadow2"
         android:layout_width="550dp"
         android:layout_height="847dp"
         android:background="#88040404"
@@ -18,6 +19,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnCaught2"
+        android:layout_width="144dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="56dp"
+        android:backgroundTint="#128817"
+        android:onClick="startThrow"
+        android:text="Throw"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCaught" />
 
     <Button
         android:id="@+id/btnCaught"

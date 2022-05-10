@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ThrowActivity extends AppCompatActivity {
 
@@ -42,7 +41,7 @@ public class ThrowActivity extends AppCompatActivity {
         setContentView(R.layout.reel_instruction);
         SensorManage = (SensorManager) getSystemService(SENSOR_SERVICE);
         mAccelerometer = SensorManage.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        TextView instruction =findViewById(R.id.textView);
+        TextView instruction =findViewById(R.id.descriptionText);
         instruction.setBackgroundResource(R.drawable.kast);
         tutorialAnimation = (AnimationDrawable) instruction.getBackground();
 
@@ -105,8 +104,7 @@ public class ThrowActivity extends AppCompatActivity {
 
     @SuppressLint("ClickableViewAccessibility")
     private void switchLayout(){
-        Toast.makeText(this, "Press the back button again to exit the application.", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, ReelActivity.class);
+        Intent intent = new Intent(this, CatchActivity.class);
         intent.putExtra("distance", distance);
         startActivity(intent);
     }
