@@ -31,14 +31,18 @@ public class CatchActivity extends AppCompatActivity {
 
     private State state;
     Vibrator vibrator;
-    VibrationEffect vibrationEffect1;
+    VibrationEffect vibrationEffectFalse;
+    VibrationEffect vibrationEffectReal;
+    VibrationEffect vibrationEffectEnd;
     Handler mHandler;
-    long timeWaiting = 0;
+    long timeToWait = 0;
     long timeSinceVibration = 0;
     long falseFinish= 0;
     long realFinish = 0;
     int goalFalse = 1;
+    int gameType = 0;
     int passedFalse = 0;
+    Random r = new Random();
     private SensorManager sensorManager;
     private Sensor sensorAccelerometer;
     private Sensor sensorGravity;
@@ -55,7 +59,7 @@ public class CatchActivity extends AppCompatActivity {
         mHandler = new Handler();
         sensorAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorGravity = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
-
+        vibrationEffectEnd = VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE);
         SensorEventListener sensorEventListenerGravity = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
@@ -72,26 +76,27 @@ public class CatchActivity extends AppCompatActivity {
             @Override
             public void onSensorChanged(SensorEvent event) {
                 double acc = calculateAcc(event.values, grav);
+                if(acc > 5 && state != State.REAL) {
+                    state = State.ENDED;
+                    vibrator.vibrate(vibrationEffectEnd);
+                }
                 if (state == State.FALSE) {
-                    if(acc > 5) {
-                        state = state.ENDED;
-                    }
-                    else if(System.currentTimeMillis() > falseFinish){
+                    if(System.currentTimeMillis() > falseFinish){
                         state = State.WAIT;
                         passedFalse += 1;
-                        timeWaiting = System.currentTimeMillis();
+                        setWaitTime();
                     }
                     else if (System.currentTimeMillis() - timeSinceVibration > 100) {
-                        vibrator.vibrate(vibrationEffect1);
+                        vibrator.vibrate(vibrationEffectFalse);
                         timeSinceVibration = System.currentTimeMillis();
                     }
 
                 }
                 else if (state == State.WAIT) {
-                    if (System.currentTimeMillis() - timeWaiting > 1000) {
+                    if (System.currentTimeMillis() > timeToWait) {
                         if(goalFalse > passedFalse){
                             state = State.FALSE;
-                            falseFinish = System.currentTimeMillis() + 1000;
+                            setFalseFinish();
                         }
                         else {
                             state = State.REAL;
@@ -110,7 +115,7 @@ public class CatchActivity extends AppCompatActivity {
                         state = State.ENDED;
                     }
                     if (System.currentTimeMillis() - timeSinceVibration > 100) {
-                        vibrator.vibrate(vibrationEffect1);
+                        vibrator.vibrate(vibrationEffectReal);
                         timeSinceVibration = System.currentTimeMillis();
                     }
                 }
@@ -126,13 +131,82 @@ public class CatchActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void startGame(android.view.View view) {
+    public void startGame1(android.view.View view) {
         this.state = State.WAIT;
-        vibrationEffect1 = VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE);
+        gameType = 1;
+        vibrationEffectFalse = VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE);
+        vibrationEffectReal = VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE);
+        vibrationEffectEnd = VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE);
+        vibrator.vibrate(vibrationEffectFalse);
         timeSinceVibration = System.currentTimeMillis();
-        vibrator.vibrate(vibrationEffect1);
-        timeWaiting = System.currentTimeMillis();
+        setWaitTime();
+        setGoalFalse();
     }
+
+    public void startGame2(android.view.View view) {
+        this.state = State.WAIT;
+        gameType = 2;
+        vibrationEffectFalse = VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE);
+        vibrationEffectReal = VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE);
+        vibrationEffectEnd = VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE);
+        vibrator.vibrate(vibrationEffectFalse);
+        timeSinceVibration = System.currentTimeMillis();
+        setWaitTime();
+        setGoalFalse();
+    }
+
+    public void startGame3(android.view.View view) {
+        this.state = State.WAIT;
+        gameType = 3;
+        vibrationEffectFalse = VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE);
+        vibrationEffectReal = VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE);
+        vibrationEffectEnd = VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE);
+        vibrator.vibrate(vibrationEffectFalse);
+        timeSinceVibration = System.currentTimeMillis();
+        setWaitTime();
+        setGoalFalse();
+    }
+
+    private void setWaitTime(){
+        if(gameType == 1) {
+            timeToWait = System.currentTimeMillis() + 1000;
+        }
+        else if(gameType == 2) {
+            timeToWait = System.currentTimeMillis() + 7000 + (int) r.nextInt(60)*100;
+        }
+        else{
+            timeToWait = System.currentTimeMillis() + 3000 + (int) r.nextInt(40)*100;
+        }
+    }
+
+    private void setGoalFalse() {
+        goalFalse = r.nextInt(3);
+    }
+
+    public void setFalseFinish() {
+        if(gameType == 1) {
+            falseFinish = System.currentTimeMillis() + 100;
+        }
+        else if(gameType == 2) {
+            falseFinish = System.currentTimeMillis() + 200;
+        }
+        else{
+            falseFinish = System.currentTimeMillis() + 100 + r.nextInt(2)*100;
+        }
+    }
+
+    public void setRealFinishFinish() {
+        if(gameType == 1) {
+            realFinish = System.currentTimeMillis() + 1000;
+        }
+        else if(gameType == 2) {
+            realFinish = System.currentTimeMillis() + 2000;
+        }
+        else{
+            realFinish = System.currentTimeMillis() + 500 + r.nextInt(10)*100;
+        }
+    }
+
     private double calculateAcc(float[] acc, float[] grav) {
         return Math.sqrt(Math.pow((double) acc[0] - grav[0], 2) + Math.pow((double) acc[1] - grav[1], 2) + Math.pow((double) acc[2] - grav[2], 2));
         //return Math.sqrt(Math.pow((double) acc[0], 2) + Math.pow((double) acc[1], 2) + Math.pow((double) acc[2], 2));
