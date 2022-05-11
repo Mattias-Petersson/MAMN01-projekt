@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import java.util.Random;
 
-public class CatchActivity extends AppCompatActivity {
+public class CatchActivity extends GameActivities {
 
     enum State {
         WAIT,
@@ -108,7 +108,6 @@ public class CatchActivity extends AppCompatActivity {
                 }
                 else if (state == State.REAL) {
                     if(acc > 5) {
-                        System.out.println("Hallå");
                         startReel();
                     }
                     else if(System.currentTimeMillis() > realFinish){

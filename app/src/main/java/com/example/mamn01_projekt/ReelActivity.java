@@ -9,7 +9,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ReelActivity extends AppCompatActivity {
+public class ReelActivity extends GameActivities {
 
     private ImageView reelImage;
     private TextView distanceText;

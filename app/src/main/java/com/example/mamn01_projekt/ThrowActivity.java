@@ -16,7 +16,7 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.widget.TextView;
 
-public class ThrowActivity extends AppCompatActivity {
+public class ThrowActivity extends GameActivities {
 
     private SensorManager SensorManage;
     private Sensor mAccelerometer;

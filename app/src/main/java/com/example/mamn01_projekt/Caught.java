@@ -45,6 +45,7 @@ public class Caught {
         fishStats = popup.findViewById(R.id.textCaughtFishAttributes);
         fishImage = popup.findViewById(R.id.imageFish);
         playAgain = popup.findViewById(R.id.buttonPlayAgain);
+        playAgain.setOnClickListener(v -> context.startActivity(new Intent(context, GameActivity.class)));
     }
 
     private void printFish() {
@@ -53,6 +54,5 @@ public class Caught {
         fishName.setTextColor(f.primaryColor);
         fishStats.setText("Weight: " + f.weight + " kg" + "\n" + "Length: " + f.length + " cm");
         fishImage.setImageResource(f.getImageSource());
-        playAgain.setOnClickListener(v -> context.startActivity(new Intent(context, GameActivity.class)));
     }
 }
