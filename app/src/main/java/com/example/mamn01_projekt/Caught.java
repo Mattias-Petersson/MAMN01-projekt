@@ -2,7 +2,6 @@ package com.example.mamn01_projekt;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

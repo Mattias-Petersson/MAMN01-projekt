@@ -1,6 +1,5 @@
 package com.example.mamn01_projekt;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -35,13 +34,19 @@ public class ReelActivity extends GameActivities {
     }
 
     private void animate(double fromDegrees, double toDegrees) {
-        RotateAnimation rotate = new RotateAnimation((float) fromDegrees, (float) toDegrees,
-                RotateAnimation.RELATIVE_TO_SELF, 0.5f,
-                RotateAnimation.RELATIVE_TO_SELF, 0.5f);
-        rotate.setDuration(0);
-        rotate.setFillEnabled(true);
-        rotate.setFillAfter(true);
-        reelImage.startAnimation(rotate);
+        if(disableCCRotation(fromDegrees, toDegrees)) {
+            RotateAnimation rotate = new RotateAnimation((float) fromDegrees, (float) toDegrees,
+                    RotateAnimation.RELATIVE_TO_SELF, 0.5f,
+                    RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+            rotate.setDuration(0);
+            rotate.setFillEnabled(true);
+            rotate.setFillAfter(true);
+            reelImage.startAnimation(rotate);
+        }
+    }
+    private boolean disableCCRotation(double fromDegrees, double toDegrees) {
+    //    double theta = 180.0 / Math.PI * Math.atan2(fromDegreesX - toDegreesX, toDegreesX - fromDegreesX);
+        return fromDegrees <= toDegrees;
     }
     private String showDistance() {
         double roundedDistance = Math.round(distance * 100d) / 100d;
@@ -65,21 +70,21 @@ public class ReelActivity extends GameActivities {
                     break;
                 case MotionEvent.ACTION_MOVE:
                     double startAngle = currentAngle;
-
                     currentAngle = getAngle(e.getX(), e.getY());
-                    if (currentAngle - startAngle < -180) {
-                        distance = distance - ((360 + (currentAngle - startAngle)) * 0.01);
-                    } else if (currentAngle - startAngle > 180) {
-                        distance = distance + ((360 - (currentAngle - startAngle)) * 0.01);
-                    } else {
-                        distance = distance - ((currentAngle - startAngle) * 0.01);
+                    if (disableCCRotation(startAngle, currentAngle)) {
+                        if (currentAngle - startAngle < -180) {
+                            distance = distance - ((360 + (currentAngle - startAngle)) * 0.01);
+                        } else if (currentAngle - startAngle > 180) {
+                            distance = distance + ((360 - (currentAngle - startAngle)) * 0.01);
+                        } else {
+                            distance = distance - ((currentAngle - startAngle) * 0.01);
+                        }
+                        if(distance > 0) {
+                            distanceText.setText(showDistance());
+                        }
+                        animate(startAngle, currentAngle);
+                        break;
                     }
-
-                    if (distance > 0) {
-                        distanceText.setText(showDistance());
-                    }
-                    animate(startAngle, currentAngle);
-                    break;
             }
             return true;
     });

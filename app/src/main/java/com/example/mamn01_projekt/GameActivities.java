@@ -1,12 +1,12 @@
 package com.example.mamn01_projekt;
 
-import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
-public abstract class GameActivities extends FragmentActivity {
+public abstract class GameActivities extends AppCompatActivity {
     private int backButtonCounter = 0;
      public void onBackPressed() {
          if(backButtonCounter >= 1) {

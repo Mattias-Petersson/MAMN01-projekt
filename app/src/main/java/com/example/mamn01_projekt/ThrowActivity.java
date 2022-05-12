@@ -1,6 +1,5 @@
 package com.example.mamn01_projekt;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,7 +9,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -76,10 +74,8 @@ public class ThrowActivity extends GameActivities {
                     }
                     if(checkStateChange(direction[0])  && xAcc >10){
                         distance= (float) (0.5*xAcc*flightTime*flightTime);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                             //Reel sound
-                            v.vibrate(VibrationEffect.createOneShot((long)flightTime*100, VibrationEffect.DEFAULT_AMPLITUDE));
-                        }
+                        v.vibrate(VibrationEffect.createOneShot((long)flightTime*100, VibrationEffect.DEFAULT_AMPLITUDE));
                         switchLayout();
                     }
                 }

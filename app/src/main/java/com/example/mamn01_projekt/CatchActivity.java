@@ -1,7 +1,6 @@
 package com.example.mamn01_projekt;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -35,6 +34,7 @@ public class CatchActivity extends GameActivities {
     VibrationEffect vibrationEffectReal;
     VibrationEffect vibrationEffectEnd;
     Handler mHandler;
+    double distance;
     long timeToWait = 0;
     long timeSinceVibration = 0;
     long falseFinish= 0;
@@ -53,6 +53,7 @@ public class CatchActivity extends GameActivities {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catch);
+        distance = getIntent().getDoubleExtra("distance", 420.0);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         this.state = State.ENDED;
@@ -129,7 +130,6 @@ public class CatchActivity extends GameActivities {
         sensorManager.registerListener(sensorEventListenerGravity, sensorGravity, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void startGame1(android.view.View view) {
         this.state = State.WAIT;
         gameType = 1;
@@ -212,6 +212,8 @@ public class CatchActivity extends GameActivities {
         //return (double) acc[0] - grav[0] + acc[1] - grav[1] + acc[2] - grav[2];
     }
     public void startReel() {
-        startActivity(new Intent(this, ReelActivity.class));
+        Intent i = new Intent(this, ReelActivity.class);
+        i.putExtra("distance", distance);
+        startActivity(i);
     }
 }
