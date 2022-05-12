@@ -9,10 +9,15 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.widget.TextView;
+import android.media.MediaPlayer;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ThrowActivity extends GameActivities {
 
@@ -25,7 +30,7 @@ public class ThrowActivity extends GameActivities {
     private String state;
     private AnimationDrawable tutorialAnimation;
     //private List<Float> xList = new LinkedList<>(); //stack to save the state at X-axle
-
+    private MediaPlayer reelSound;
 
     @Override
     protected void onStart() {
@@ -42,6 +47,7 @@ public class ThrowActivity extends GameActivities {
         TextView instruction =findViewById(R.id.descriptionText);
         instruction.setBackgroundResource(R.drawable.kast);
         tutorialAnimation = (AnimationDrawable) instruction.getBackground();
+        reelSound = MediaPlayer.create(this,R.raw.reelsound3s);
 
 
         SensorManage.registerListener(new SensorEventListener() {
@@ -74,9 +80,18 @@ public class ThrowActivity extends GameActivities {
                     }
                     if(checkStateChange(direction[0])  && xAcc >10){
                         distance= (float) (0.5*xAcc*flightTime*flightTime);
-                            //Reel sound
-                        v.vibrate(VibrationEffect.createOneShot((long)flightTime*100, VibrationEffect.DEFAULT_AMPLITUDE));
-                        switchLayout();
+                        reelSound.start();
+                        v.vibrate(VibrationEffect.createOneShot(3000, VibrationEffect.DEFAULT_AMPLITUDE));
+                        TimerTask task = new TimerTask(){
+                            public void run(){
+                                switchLayout();
+                            }
+                        };
+                        Timer timer = new Timer();
+                        timer.schedule(task, 3000);
+
+
+
                     }
                 }
             }
