@@ -182,13 +182,13 @@ public class CatchActivity extends GameActivities {
 
     private void setWaitTime(){
         if(gameType == 1) {
-            timeToWait = System.currentTimeMillis() + 1000 + (int) r.nextInt(5)*100;
+            timeToWait = System.currentTimeMillis() + 1000 + r.nextInt(5)*100;
         }
         else if(gameType == 2) {
-            timeToWait = System.currentTimeMillis() + 1000 + (int) r.nextInt(30)*100;
+            timeToWait = System.currentTimeMillis() + 1000 + r.nextInt(30)*100;
         }
         else{
-            timeToWait = System.currentTimeMillis() + 2000 + (int) r.nextInt(10)*100;
+            timeToWait = System.currentTimeMillis() + 2000 + r.nextInt(10)*100;
         }
     }
 
