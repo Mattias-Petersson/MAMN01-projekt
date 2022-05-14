@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -50,12 +51,18 @@ public class CatchActivity extends GameActivities {
 
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        ((AnimationDrawable) findViewById(R.id.text1).getBackground()).start();
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catch);
         distance = getIntent().getDoubleExtra("distance", 42.0);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        findViewById(R.id.text1).setBackgroundResource(R.drawable.fangst);
         this.state = State.ENDED;
         mHandler = new Handler();
         sensorAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -133,7 +140,6 @@ public class CatchActivity extends GameActivities {
 
     public void startGame1(android.view.View view) {
         setGoalFalse();
-        goalFalse = 2;
         this.state = State.WAIT;
         gameType = 1;
         passedFalse = 0;
@@ -148,7 +154,6 @@ public class CatchActivity extends GameActivities {
 
     public void startGame2(android.view.View view) {
         setGoalFalse();
-        goalFalse = 2;
         this.state = State.WAIT;
         gameType = 2;
         passedFalse = 0;
@@ -163,7 +168,6 @@ public class CatchActivity extends GameActivities {
 
     public void startGame3(android.view.View view) {
         setGoalFalse();
-        goalFalse = 2;
         this.state = State.WAIT;
         gameType = 3;
         passedFalse = 0;
