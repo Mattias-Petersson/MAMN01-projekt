@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MAMN01Projekt">
         <activity
+            android:name=".CatchFail"
+            android:exported="false" />
+        <activity
             android:name=".ThrowActivity"
             android:exported="false" />
         <activity

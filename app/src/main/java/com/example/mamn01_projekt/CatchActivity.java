@@ -50,8 +50,21 @@ public class CatchActivity extends GameActivities {
     private Sensor sensorAccelerometer;
     private Sensor sensorGravity;
     float[] grav = new float[3];
+    SensorEventListener sensorEventListenerAccelerometer;
 
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(sensorEventListenerAccelerometer);
+
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sensorManager.registerListener(sensorEventListenerAccelerometer, sensorAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+    }
     @Override
     protected void onStart() {
         super.onStart();
@@ -79,8 +92,7 @@ public class CatchActivity extends GameActivities {
             public void onAccuracyChanged(Sensor sensor, int accuracy) {
             }
         };
-
-        SensorEventListener sensorEventListenerAccelerometer = new SensorEventListener() {
+            sensorEventListenerAccelerometer = new SensorEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @SuppressLint("NewApi")
             @Override
@@ -89,6 +101,7 @@ public class CatchActivity extends GameActivities {
                 if(acc > 3 && (state == State.FALSE || state == State.WAIT)) {
                     vibrator.vibrate(vibrationEffectEnd);
                     state = State.ENDED;
+                    goToFail(true);
                 }
                 else if (state == State.FALSE) {
                     if(System.currentTimeMillis() > falseFinish){
@@ -120,6 +133,7 @@ public class CatchActivity extends GameActivities {
                     }
                     else if(System.currentTimeMillis() > realFinish){
                         state = State.ENDED;
+                        goToFail(false);
                     }
                     if (System.currentTimeMillis() - timeSinceVibration > 100) {
                         vibrator.vibrate(vibrationEffectReal);
@@ -195,7 +209,7 @@ public class CatchActivity extends GameActivities {
             timeToWait = System.currentTimeMillis() + 1000 + r.nextInt(30)*100;
         }
         else{*/
-            timeToWait = System.currentTimeMillis() + 2000 + r.nextInt(10)*100;
+            timeToWait = System.currentTimeMillis() + 1000 + r.nextInt(30)*100;
         //}
     }
 
@@ -224,7 +238,7 @@ public class CatchActivity extends GameActivities {
             vibrationEffectReal = VibrationEffect.createOneShot(100, 255);
         }
         else if(gameType == 2) {*/
-            realFinish = System.currentTimeMillis() + 500 + r.nextInt(5)*100;
+            realFinish = System.currentTimeMillis() + 800 + r.nextInt(5)*100;
             vibrationEffectReal = VibrationEffect.createOneShot(150, VibrationEffect.DEFAULT_AMPLITUDE);
         /**}
         else{
@@ -240,9 +254,24 @@ public class CatchActivity extends GameActivities {
     }
     public void startReel() {
         vibrator.cancel();
+        sensorManager.unregisterListener(sensorEventListenerAccelerometer);
         Intent i = new Intent(this, ReelActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         i.putExtra("distance", distance);
+        startActivity(i);
+    }
+
+    public void goToFail(boolean early){
+        vibrator.cancel();
+        sensorManager.unregisterListener(sensorEventListenerAccelerometer);
+        Intent i = new Intent(this, CatchFail.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        if(early){
+            i.putExtra("failMsg", "Ojdå! Du ryckte för tidigt och skrämmde fisken!");
+        }
+        else {
+            i.putExtra("failMsg", "Fisken åt ditt bete och stack!");
+        }
         startActivity(i);
     }
 }
