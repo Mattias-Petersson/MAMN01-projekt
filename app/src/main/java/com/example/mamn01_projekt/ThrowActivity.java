@@ -29,6 +29,7 @@ public class ThrowActivity extends GameActivities {
     private String[] direction = {null, null};
     private String state;
     private AnimationDrawable tutorialAnimation;
+    private SensorEventListener thrower;
     //private List<Float> xList = new LinkedList<>(); //stack to save the state at X-axle
     private MediaPlayer reelSound;
 
@@ -36,6 +37,12 @@ public class ThrowActivity extends GameActivities {
     protected void onStart() {
         super.onStart();
         tutorialAnimation.start();
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        SensorManage.unregisterListener(thrower);
     }
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -50,7 +57,7 @@ public class ThrowActivity extends GameActivities {
         reelSound = MediaPlayer.create(this,R.raw.reelsound3s);
 
 
-        SensorManage.registerListener(new SensorEventListener() {
+        thrower = new SensorEventListener() {
             @SuppressLint("MissingPermission")
             @Override
             public void onSensorChanged(SensorEvent event) {
@@ -100,7 +107,8 @@ public class ThrowActivity extends GameActivities {
             public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
             }
-        }, mAccelerometer, SensorManager.SENSOR_DELAY_UI);
+        };
+        SensorManage.registerListener(thrower, mAccelerometer, SensorManager.SENSOR_DELAY_UI);
         v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
     }
 
@@ -115,6 +123,7 @@ public class ThrowActivity extends GameActivities {
     @SuppressLint("ClickableViewAccessibility")
     private void switchLayout(){
         Intent intent = new Intent(this, CatchActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("distance", distance);
         startActivity(intent);
     }
