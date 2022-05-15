@@ -17,10 +17,12 @@ public class MenuActivity extends AppCompatActivity {
         backButtonCounter = 0;
     }
 
-     public void startGame(View v) {
-        this.startActivity(new Intent(this, GameActivity.class));
+    public void startGame(View v) {
+        this.startActivity(new Intent(this, ThrowActivity.class));
     }
-    public void startReel(View v) {
+    public void startTutorial(View v) { this.startActivity(new Intent(this, TutorialActivity.class)); }
+
+    /* public void startReel(View v) {
         startActivity(new Intent(this, ReelActivity.class));
     }
     public void startCatch(View v) {
@@ -28,7 +30,8 @@ public class MenuActivity extends AppCompatActivity {
     }
     public void startThrow(View v) {
         startActivity(new Intent(this, ThrowActivity.class));
-    }
+    } */
+
     @Override
     public void onBackPressed() {
         if(backButtonCounter >= 1) {

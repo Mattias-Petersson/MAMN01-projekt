@@ -20,11 +20,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- <Button
+        android:id="@+id/btnSpole"
+        android:layout_width="144dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#128817"
+        android:onClick="startReel"
+        android:text="Reel"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPlay2" />
+
     <Button
         android:id="@+id/btnCaught2"
         android:layout_width="144dp"
         android:layout_height="48dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="32dp"
         android:backgroundTint="#128817"
         android:onClick="startThrow"
         android:text="Throw"
@@ -39,31 +54,16 @@
         android:id="@+id/btnCatch"
         android:layout_width="144dp"
         android:layout_height="48dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#128817"
         android:onClick="startCatch"
         android:text="Catch"
-        android:backgroundTint="#128817"
         android:textAllCaps="false"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSpole" />
-
-    <Button
-        android:id="@+id/btnSpole"
-        android:layout_width="144dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="56dp"
-        android:backgroundTint="#128817"
-        android:onClick="startReel"
-        android:text="Reel"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPlay" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSpole" /> -->
 
     <Button
         android:id="@+id/btnPlay"
@@ -79,5 +79,20 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnPlay2"
+        android:layout_width="144dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#128817"
+        android:onClick="startTutorial"
+        android:text="Tutorial"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPlay" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
