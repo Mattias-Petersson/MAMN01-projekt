@@ -34,7 +34,7 @@ public class ReelActivity extends GameActivities {
     }
 
     private void animate(double fromDegrees, double toDegrees) {
-        if(disableCCRotation(fromDegrees, toDegrees)) {
+        //if(disableCCRotation(fromDegrees, toDegrees)) {
             RotateAnimation rotate = new RotateAnimation((float) fromDegrees, (float) toDegrees,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f);
@@ -42,7 +42,7 @@ public class ReelActivity extends GameActivities {
             rotate.setFillEnabled(true);
             rotate.setFillAfter(true);
             reelImage.startAnimation(rotate);
-        }
+        //}
     }
     private boolean disableCCRotation(double fromDegrees, double toDegrees) {
     //    double theta = 180.0 / Math.PI * Math.atan2(fromDegreesX - toDegreesX, toDegreesX - fromDegreesX);
@@ -71,20 +71,20 @@ public class ReelActivity extends GameActivities {
                 case MotionEvent.ACTION_MOVE:
                     double startAngle = currentAngle;
                     currentAngle = getAngle(e.getX(), e.getY());
-                    if (disableCCRotation(startAngle, currentAngle)) {
+                    //if (disableCCRotation(startAngle, currentAngle)) {
                         if (currentAngle - startAngle < -180) {
                             distance = distance - ((360 + (currentAngle - startAngle)) * 0.01);
                         } else if (currentAngle - startAngle > 180) {
-                            distance = distance + ((360 - (currentAngle - startAngle)) * 0.01);
+                            distance = distance - ((360 - (currentAngle - startAngle)) * 0.01);
                         } else {
-                            distance = distance - ((currentAngle - startAngle) * 0.01);
+                            distance = distance - Math.abs(((currentAngle - startAngle) * 0.01));
                         }
                         if(distance > 0) {
                             distanceText.setText(showDistance());
                         }
                         animate(startAngle, currentAngle);
                         break;
-                    }
+                    //}
             }
             return true;
     });
