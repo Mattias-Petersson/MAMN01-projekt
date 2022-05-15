@@ -24,7 +24,7 @@ public class ThrowActivity extends GameActivities {
     private SensorManager SensorManage;
     private Sensor mAccelerometer;
     private double distance;
-    private double flightTime =1.5;
+    private double flightTime =3;
     private Vibrator v;
     private String[] direction = {null, null};
     private String state;
@@ -88,14 +88,14 @@ public class ThrowActivity extends GameActivities {
                     if(checkStateChange(direction[0])  && xAcc >10){
                         distance= (float) (0.5*xAcc*flightTime*flightTime);
                         reelSound.start();
-                        v.vibrate(VibrationEffect.createOneShot((long)flightTime*1000, VibrationEffect.DEFAULT_AMPLITUDE));
+                        v.vibrate(VibrationEffect.createOneShot(3000, VibrationEffect.DEFAULT_AMPLITUDE));
                         TimerTask task = new TimerTask(){
                             public void run(){
                                 switchLayout();
                             }
                         };
                         Timer timer = new Timer();
-                        timer.schedule(task, (long)flightTime*1000);
+                        timer.schedule(task, 3000);
 
 
 
