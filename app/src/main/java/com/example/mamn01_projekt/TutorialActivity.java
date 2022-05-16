@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-public class TutorialActivity extends AppCompatActivity {
+public class TutorialActivity extends GameActivities {
 
     private TextView stepText;
     private ImageView gifView;
@@ -25,7 +25,7 @@ public class TutorialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
         stepText = findViewById(R.id.step);
-        gifView = (ImageView) findViewById(R.id.gifImageView2);
+        gifView = findViewById(R.id.gifImageView2);
         nextButton = findViewById(R.id.button2);
 
         index = 0;

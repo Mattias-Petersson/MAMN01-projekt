@@ -6,19 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ReelActivity">
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/maingame"/>
-
-    <ImageView
-        android:id="@+id/imageShadow"
-        android:layout_width="550dp"
-        android:layout_height="847dp"
-        android:background="#88040404"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageReel"
@@ -28,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/reel_gif" />
+        app:srcCompat="@drawable/reel" />
 
     <TextView
         android:id="@+id/distance"
@@ -47,15 +34,17 @@
         android:id="@+id/descriptionText"
         android:layout_width="292dp"
         android:layout_height="63dp"
+        android:layout_marginTop="38dp"
         android:layout_marginBottom="176dp"
         android:shadowRadius="4"
         android:singleLine="true"
-        android:text="Reel in the fish!"
+        android:text="Reel in the fish"
         android:textAlignment="center"
         android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/imageReel"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.313" />
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

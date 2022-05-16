@@ -5,7 +5,6 @@ import androidx.annotation.RequiresApi;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -15,8 +14,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.view.View;
-import android.widget.Toast;
 
 import java.util.Random;
 import java.util.Timer;
@@ -65,11 +62,7 @@ public class CatchActivity extends GameActivities {
         super.onResume();
         sensorManager.registerListener(sensorEventListenerAccelerometer, sensorAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        ((AnimationDrawable) findViewById(R.id.text1).getBackground()).start();
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +70,6 @@ public class CatchActivity extends GameActivities {
         distance = getIntent().getDoubleExtra("distance", 42.0);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        findViewById(R.id.text1).setBackgroundResource(R.drawable.fangst);
         this.state = State.ENDED;
         mHandler = new Handler();
         sensorAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -267,10 +259,10 @@ public class CatchActivity extends GameActivities {
         Intent i = new Intent(this, CatchFail.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         if(early){
-            i.putExtra("failMsg", "Ojdå! Du ryckte för tidigt och skrämmde fisken!");
+            i.putExtra("failMsg", "Whoops! \n You pulled too early and scared away the fish");
         }
         else {
-            i.putExtra("failMsg", "Fisken åt ditt bete och stack!");
+            i.putExtra("failMsg", "The fish ate your bait and left!");
         }
         startActivity(i);
     }

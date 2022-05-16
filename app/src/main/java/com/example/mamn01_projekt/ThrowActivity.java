@@ -4,7 +4,6 @@ package com.example.mamn01_projekt;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -14,7 +13,6 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.widget.TextView;
-import android.media.MediaPlayer;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,16 +26,9 @@ public class ThrowActivity extends GameActivities {
     private Vibrator v;
     private String[] direction = {null, null};
     private String state;
-    private AnimationDrawable tutorialAnimation;
     private SensorEventListener thrower;
     //private List<Float> xList = new LinkedList<>(); //stack to save the state at X-axle
     private MediaPlayer reelSound;
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        tutorialAnimation.start();
-    }
 
     @Override
     protected void onStop(){
@@ -51,9 +42,7 @@ public class ThrowActivity extends GameActivities {
         setContentView(R.layout.reel_instruction);
         SensorManage = (SensorManager) getSystemService(SENSOR_SERVICE);
         mAccelerometer = SensorManage.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        TextView instruction =findViewById(R.id.descriptionText);
-        instruction.setBackgroundResource(R.drawable.kast);
-        tutorialAnimation = (AnimationDrawable) instruction.getBackground();
+        TextView instruction = findViewById(R.id.descriptionText);
         reelSound = MediaPlayer.create(this,R.raw.reelsound3s);
 
 

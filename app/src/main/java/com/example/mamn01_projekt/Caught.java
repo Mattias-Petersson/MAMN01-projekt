@@ -22,7 +22,7 @@ public class Caught {
     }
     private ImageView fishImage;
     private TextView fishName, fishStats;
-    private Button playAgain;
+    private Button btnReplay, btnReturnToMenu;
 
     @SuppressLint("ClickableViewAccessibility")
     public void catchFishPopup(View view) {
@@ -43,8 +43,10 @@ public class Caught {
         fishName = popup.findViewById(R.id.textCaughtFishName);
         fishStats = popup.findViewById(R.id.textCaughtFishAttributes);
         fishImage = popup.findViewById(R.id.imageFish);
-        playAgain = popup.findViewById(R.id.buttonPlayAgain);
-        playAgain.setOnClickListener(v -> context.startActivity(new Intent(context, GameActivity.class)));
+        btnReplay = popup.findViewById(R.id.buttonPlayAgain);
+        btnReturnToMenu = popup.findViewById(R.id.buttonMenu);
+        btnReplay.setOnClickListener(v -> context.startActivity(new Intent(context, ThrowActivity.class)));
+        btnReturnToMenu.setOnClickListener(v -> context.startActivity(new Intent(context, MenuActivity.class)));
     }
 
     private void printFish() {
