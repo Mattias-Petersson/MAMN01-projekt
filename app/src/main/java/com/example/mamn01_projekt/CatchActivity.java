@@ -231,7 +231,7 @@ public class CatchActivity extends GameActivities {
         }
         else if(gameType == 2) {*/
             realFinish = System.currentTimeMillis() + 800 + r.nextInt(5)*100;
-            vibrationEffectReal = VibrationEffect.createOneShot(150, VibrationEffect.DEFAULT_AMPLITUDE);
+            vibrationEffectReal = VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE);
         /**}
         else{
             realFinish = System.currentTimeMillis() + 1000 + r.nextInt(5)*100;
