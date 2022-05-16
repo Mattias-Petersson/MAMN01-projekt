@@ -36,7 +36,7 @@ public class ThrowActivity extends GameActivities {
     @Override
     protected void onStart() {
         super.onStart();
-        tutorialAnimation.start();
+        //tutorialAnimation.start();
     }
 
     @Override
@@ -48,13 +48,13 @@ public class ThrowActivity extends GameActivities {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.reel_instruction);
+        setContentView(R.layout.activity_throw);
         SensorManage = (SensorManager) getSystemService(SENSOR_SERVICE);
         mAccelerometer = SensorManage.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        TextView instruction =findViewById(R.id.descriptionText);
-        instruction.setBackgroundResource(R.drawable.kast);
-        tutorialAnimation = (AnimationDrawable) instruction.getBackground();
-        reelSound = MediaPlayer.create(this,R.raw.reelsound3s);
+        //TextView instruction =findViewById(R.id.descriptionText);
+        //instruction.setBackgroundResource(R.drawable.kast);
+        //tutorialAnimation = (AnimationDrawable) instruction.getBackground();
+        reelSound = MediaPlayer.create(this,R.raw.reelsoundshort);
 
 
         thrower = new SensorEventListener() {
@@ -96,9 +96,6 @@ public class ThrowActivity extends GameActivities {
                         };
                         Timer timer = new Timer();
                         timer.schedule(task, (long)flightTime*1000);
-
-
-
                     }
                 }
             }
