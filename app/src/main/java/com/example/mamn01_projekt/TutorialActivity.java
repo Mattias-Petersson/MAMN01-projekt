@@ -71,6 +71,7 @@ public class TutorialActivity extends GameActivities {
         } else if (index == 5)  {
             Glide.with(this).load(R.drawable.success_gif).into(gifView);
             stepText.setText("Step 4: Feel proud about your catch");
+            nextButton.setText("Start game");
         } else if (index == 6)  {
             startActivity(new Intent(this, ThrowActivity.class));
         }
