@@ -67,23 +67,22 @@
 
     <Button
         android:id="@+id/btnPlay"
-        android:layout_width="144dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="376dp"
+        android:layout_width="195dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="420dp"
         android:backgroundTint="#128817"
         android:onClick="startGame"
         android:text="Play"
         android:textAllCaps="false"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnPlay2"
-        android:layout_width="144dp"
-        android:layout_height="48dp"
+        android:layout_width="195dp"
+        android:layout_height="72dp"
         android:layout_marginTop="24dp"
         android:backgroundTint="#128817"
         android:onClick="startTutorial"
@@ -91,7 +90,6 @@
         android:textAllCaps="false"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnPlay" />
 
