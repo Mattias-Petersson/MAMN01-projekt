@@ -24,7 +24,7 @@ public class TutorialActivity extends GameActivities {
     private ImageView gifView;
     private Button nextButton;
     VibrationEffect vibrationEffectFalse = VibrationEffect.createOneShot(300, 75);
-    VibrationEffect vibrationEffectReal = VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE);
+    VibrationEffect vibrationEffectReal = VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE);
     private String[] gifs;
     private int index;
 
@@ -97,14 +97,31 @@ public class TutorialActivity extends GameActivities {
 
     public void replayReal(){
         if(index == 3){
+            runReal(System.currentTimeMillis());
+        }
+    }
+
+    public void runReal(long time){
+        //CharSequence compare = "Do pull when the fish hooks on, it feels like this";
+        if(System.currentTimeMillis() < ((long) time) + 1000 && index == 3) {
+            //stepText.setText(System.currentTimeMillis() + "hi" + ((long) time));
             vibrator.vibrate(vibrationEffectReal);
+            TimerTask task = new TimerTask() {
+                public void run() {
+                    runReal(time);
+                }
+            };
+            Timer timer = new Timer();
+            timer.schedule(task, 315);
+        }
+        else{
             TimerTask task = new TimerTask(){
                 public void run(){
                     replayReal();
                 }
             };
             Timer timer = new Timer();
-            timer.schedule(task, 4000);
+            timer.schedule(task, 3000);
         }
     }
 
