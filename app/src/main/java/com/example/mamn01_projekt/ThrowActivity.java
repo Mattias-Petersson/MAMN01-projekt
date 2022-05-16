@@ -43,7 +43,7 @@ public class ThrowActivity extends GameActivities {
         SensorManage = (SensorManager) getSystemService(SENSOR_SERVICE);
         mAccelerometer = SensorManage.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         TextView instruction = findViewById(R.id.descriptionText);
-        reelSound = MediaPlayer.create(this,R.raw.reelsound3s);
+        reelSound = MediaPlayer.create(this,R.raw.reelsoundshort);
 
 
         thrower = new SensorEventListener() {
