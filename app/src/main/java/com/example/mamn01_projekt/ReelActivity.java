@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.animation.RotateAnimation;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ public class ReelActivity extends GameActivities {
 
     private ImageView reelImage;
     private TextView distanceText;
+    private ImageButton btnExit;
     private double currentAngle = 0;
     private double distance;
 
@@ -22,6 +24,7 @@ public class ReelActivity extends GameActivities {
         setContentView(R.layout.activity_reel);
         distance = getIntent().getDoubleExtra("distance", 42.0);
         reelImage = findViewById(R.id.imageReel);
+        btnExit = findViewById(R.id.btnCloseReel);
         distanceText = findViewById(R.id.distance);
         initializeScreen();
 
@@ -44,10 +47,6 @@ public class ReelActivity extends GameActivities {
             reelImage.startAnimation(rotate);
         //}
     }
-    private boolean disableCCRotation(double fromDegrees, double toDegrees) {
-    //    double theta = 180.0 / Math.PI * Math.atan2(fromDegreesX - toDegreesX, toDegreesX - fromDegreesX);
-        return fromDegrees <= toDegrees;
-    }
     private String showDistance() {
         double roundedDistance = Math.round(distance * 100d) / 100d;
         return "Distance: " + roundedDistance + " m";
@@ -56,6 +55,7 @@ public class ReelActivity extends GameActivities {
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     private void initializeScreen() {
         distanceText.setText(showDistance());
+        btnExit.setOnTouchListener((v, e) -> exitGame());
         reelImage.setOnTouchListener((v, e) -> {
             if (distance <= 0) {
                 distanceText.setText("Distance: 0 m");

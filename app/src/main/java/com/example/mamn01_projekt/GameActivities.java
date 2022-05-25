@@ -23,4 +23,10 @@ public abstract class GameActivities extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
+
+    protected boolean exitGame() {
+        Intent i = new Intent(this, MenuActivity.class);
+        startActivity(i);
+        return true;
+    }
 }

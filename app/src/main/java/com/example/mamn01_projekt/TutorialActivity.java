@@ -2,6 +2,7 @@ package com.example.mamn01_projekt;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +24,7 @@ public class TutorialActivity extends GameActivities {
     private TextView stepText;
     Vibrator vibrator;
     private ImageView gifView;
+    private ImageButton btnExit;
     private Button nextButton;
     VibrationEffect vibrationEffectFalse = VibrationEffect.createOneShot(300, 75);
     VibrationEffect vibrationEffectReal = VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE);
@@ -35,10 +38,13 @@ public class TutorialActivity extends GameActivities {
         index = 0;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
+        btnExit = findViewById(R.id.btnCloseTutorial);
+        btnExit.setOnTouchListener((v, e) -> exitGame());
         stepText = findViewById(R.id.step);
         gifView = findViewById(R.id.gifImageView2);
         nextButton = findViewById(R.id.button2);

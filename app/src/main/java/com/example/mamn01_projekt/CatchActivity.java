@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.widget.ImageButton;
 
 import java.util.Random;
 import java.util.Timer;
@@ -34,6 +35,7 @@ public class CatchActivity extends GameActivities {
     VibrationEffect vibrationEffectReal;
     VibrationEffect vibrationEffectEnd;
     Handler mHandler;
+    private ImageButton btnExit;
     double distance;
     long timeToWait = 0;
     long timeSinceVibration = 0;
@@ -63,11 +65,14 @@ public class CatchActivity extends GameActivities {
         sensorManager.registerListener(sensorEventListenerAccelerometer, sensorAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catch);
         distance = getIntent().getDoubleExtra("distance", 42.0);
+        btnExit = findViewById(R.id.btnCloseCatch);
+        btnExit.setOnTouchListener((v, e) -> exitGame());
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         this.state = State.ENDED;

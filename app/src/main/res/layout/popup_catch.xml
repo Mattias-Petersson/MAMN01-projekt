@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#E6888888">
+    android:background="#888888">
 
     <Button
         android:id="@+id/buttonMenu"
@@ -23,11 +23,11 @@
 
     <TextView
         android:id="@+id/catchTextStatic"
-        android:layout_width="218dp"
-        android:layout_height="26dp"
+        android:layout_width="277dp"
+        android:layout_height="41dp"
         android:shadowRadius="5"
         android:text="@string/congrats"
-        android:textSize="16sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +57,7 @@
         android:layout_height="50dp"
         android:shadowRadius="5"
         android:text="@string/defaultStats"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -12,6 +12,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.Timer;
@@ -20,6 +21,7 @@ import java.util.TimerTask;
 public class ThrowActivity extends GameActivities {
 
     private SensorManager SensorManage;
+    private ImageButton btnExit;
     private Sensor mAccelerometer;
     private double distance;
     private double flightTime =1.5;
@@ -40,6 +42,8 @@ public class ThrowActivity extends GameActivities {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reel_instruction);
+        btnExit = findViewById(R.id.btnCloseThrow);
+        btnExit.setOnTouchListener((v, e) -> exitGame());
         SensorManage = (SensorManager) getSystemService(SENSOR_SERVICE);
         mAccelerometer = SensorManage.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         TextView instruction = findViewById(R.id.descriptionText);

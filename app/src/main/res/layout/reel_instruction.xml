@@ -6,21 +6,32 @@
     android:layout_height="match_parent"
     tools:context=".ReelActivity">
 
-    <TextView
-        android:id="@+id/descriptionText"
+    <ImageButton
+        android:id="@+id/btnCloseThrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/descriptionText"
+        android:layout_width="409dp"
+        android:layout_height="116dp"
         android:layout_marginTop="70dp"
         android:shadowRadius="4"
-        android:text="Flick the phone to throw the bait"
+        android:text="Flick the phone\nto throw the bait"
         android:textAlignment="center"
-        android:textSize="34sp"
+        android:textSize="46sp"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.001" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
